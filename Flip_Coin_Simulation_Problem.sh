@@ -1,24 +1,32 @@
 #! /bin/bash
 
-read -p "Enter Number : " number
-
 totalHeads=0
 totalTails=0
 
-if [[ $number ]] && [ $number -eq $number 2>/dev/null ] && [ $number -gt 0 ]; then
-	for (( i=0; i<$number; i++ ))
-	do
+while [ "$totalHeads" -lt "21" -a "$totalTails" -lt "21" ]
+do
 
-		isCheck=$((RANDOM%2))
+	isCheck=$((RANDOM%2))
 
-		if [ "$isCheck" -eq 0 ]; then
-			totalHeads=$(($totalHeads + 1))
-		else
-			totalTails=$(($totalTails + 1))
-		fi
-	done
+	if [ "$isCheck" -eq 0 ]; then
+		totalHeads=$(($totalHeads + 1))
+	else
+		totalTails=$(($totalTails + 1))
+	fi
+done
 
-	echo "Out Of $number : Heads Won $totalHeads times : Tails won $totalTails times"
-else
-	echo "Wrong Input !! Enter Number Above 0 Only. E.g  15 "
+
+echo "Heads got $totalHeads : Tails got $totalTails"
+
+
+if [ "$totalHeads" -gt "$totalTails" ]; then
+	wonBy=$(( "$totalHeads" - "$totalTails"))
+	echo "Head Won by : $wonBy"
+
+elif [ "$totalHeads" -lt "$totalTails" ]; then
+        wonBy=$(( "$totalTails" - "$totalHeads"))
+        echo "Tail Won by : $wonBy"
+
+elif [ "$totalHeads" -eq "$totalTails" ]; then
+        echo "Oops ! Its Tie "
 fi
